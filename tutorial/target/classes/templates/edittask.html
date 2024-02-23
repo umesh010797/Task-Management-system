@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h2>Edit Task</h2>
+  <form action="#" th:action="@{/updateTask/{id}(id=${task.id})}" th:object="${task}" method="post">
+    <div class="form-group mb-3">
+      <label class="form-label">Title</label>
+      <input class="form-control" id="title" name="title" th:value="${task.title}" type="text" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="form-label">Description</label>
+      <input class="form-control" id="description" name="description" th:value="${task.description}" type="text" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="form-label">Due Date</label>
+      <input class="form-control" id="dueDate" name="dueDate" th:value="${task.dueDate}" type="date" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="form-label">Priority</label>
+      <select class="form-select" id="priority" name="priority">
+        <option value="High_Priority" th:selected="${task.priority == 'High_Priority'}">High Priority</option>
+        <option value="Medium_Priority" th:selected="${task.priority == 'Medium_Priority'}">Medium Priority</option>
+        <option value="Low_Priority" th:selected="${task.priority == 'Low_Priority'}">Low Priority</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="form-label">Status</label>
+      <select class="form-select" id="status" name="status">
+        <option value="true" th:selected="${task.status}">Active</option>
+        <option value="false" th:selected="${!task.status}">Inactive</option>
+      </select>
+    </div>
+
+    <!-- Assign To (User) selection dropdown -->
+    <div class="form-group mb-3">
+      <label class="form-label">Assign To</label>
+      <select class="form-select" id="assignTo" name="assignTo">
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}" th:selected="${user.id == task.assignTo}"></option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
